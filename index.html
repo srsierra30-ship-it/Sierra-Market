@@ -1,1 +1,79 @@
-<html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Sierra Market Intelligence</title><style>body{background:#F7FAFC;color:#2D3748;font-family:sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0} .box{background:#fff;max-width:450px;width:90%;padding:40px 30px;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,0.05);border-top:8px solid #1A365D;text-align:center} h1{font-size:22px;color:#1A365D;margin-bottom:10px} p{font-size:14px;color:#718096;margin-bottom:25px} label{display:block;text-align:left;font-size:12px;font-weight:bold;color:#4A5568;margin-bottom:5px;text-transform:uppercase} input{width:100%;padding:12px;margin-bottom:18px;border:2px solid #E2E8F0;border-radius:6px;box-sizing:border-box} .btn{width:100%;background:#25D366;color:#fff;border:none;padding:14px;font-size:16px;font-weight:bold;border-radius:6px;cursor:pointer;box-shadow:0 4px 12px rgba(37,211,102,0.3)}</style></head><body><div class='box'><div style='font-size:12px;font-weight:bold;color:#4299E1;letter-spacing:2px;margin-bottom:10px'>SIERRA MARKET INTELLIGENCE</div><h1>Acesse as 47 Oportunidades Secretas do Park Sul</h1><p>Mapeamento de ativos operando até 15% abaixo da média por urgência de liquidez. Preencha os campos para receber o PDF no seu WhatsApp.</p><form><label>Nome Completo</label><input type='text' id='n' required><label>WhatsApp com DDD</label><input type='tel' id='w' required><label>E-mail Corporativo</label><input type='email' id='e' required><button type='button' class='btn' onclick='var n=document.getElementById("n").value,e=document.getElementById("e").value;if(!n||!e){alert("Por favor, preencha os campos")}else{window.location.href="https://wa.me"+encodeURIComponent(n)+"%20-%20E-mail:%20"+encodeURIComponent(e)}'>SOLICITAR ACESSO VIA WHATSAPP</button></form></div></body></html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sierra Market Intelligence</title>
+<style>
+body{background:#F7FAFC;color:#2D3748;font-family:sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.box{background:#fff;max-width:450px;width:90%;padding:40px 30px;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,0.05);border-top:8px solid #1A365D;text-align:center}
+h1{font-size:22px;color:#1A365D;margin-bottom:10px}
+p{font-size:14px;color:#718096;margin-bottom:25px}
+label{display:block;text-align:left;font-size:12px;font-weight:bold;color:#4A5568;margin-bottom:5px;text-transform:uppercase}
+input{width:100%;padding:12px;margin-bottom:18px;border:2px solid #E2E8F0;border-radius:6px;box-sizing:border-box}
+.btn{width:100%;background:#25D366;color:#fff;border:none;padding:14px;font-size:16px;font-weight:bold;border-radius:6px;cursor:pointer;box-shadow:0 4px 12px rgba(37,211,102,0.3)}
+.btn:disabled{opacity:0.6;cursor:default}
+</style>
+</head>
+<body>
+<div class="box">
+  <div style="font-size:12px;font-weight:bold;color:#4299E1;letter-spacing:2px;margin-bottom:10px">SIERRA MARKET INTELLIGENCE</div>
+  <h1>Acesse as 47 Oportunidades Secretas do Park Sul</h1>
+  <p>Mapeamento de ativos operando até 15% abaixo da média por urgência de liquidez. Preencha os campos para receber o PDF no seu WhatsApp.</p>
+  <form>
+    <label>Nome Completo</label>
+    <input type="text" id="n" required>
+    <label>WhatsApp com DDD</label>
+    <input type="tel" id="w" required>
+    <label>E-mail Corporativo</label>
+    <input type="email" id="e" required>
+    <button type="button" class="btn" id="btnEnviar" onclick="enviar()">SOLICITAR ACESSO VIA WHATSAPP</button>
+  </form>
+</div>
+
+<script>
+// TROQUE PELOS SEUS DADOS:
+var WEB3FORMS_ACCESS_KEY = "842730a6-daa6-41fa-a286-ca9cdf280319"; // pegue em https://app.web3forms.com/
+var MEU_WHATSAPP = "5521964413220"; // seu número, só dígitos, com 55 + DDD na frente
+
+function enviar() {
+  var n = document.getElementById("n").value;
+  var w = document.getElementById("w").value;
+  var e = document.getElementById("e").value;
+
+  if (!n || !w || !e) {
+    alert("Por favor, preencha todos os campos");
+    return;
+  }
+
+  var btn = document.getElementById("btnEnviar");
+  btn.disabled = true;
+  btn.textContent = "Enviando...";
+
+  // 1) Envia os dados por e-mail via Web3Forms
+  fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: "Novo lead - Sierra Market Intelligence",
+      nome: n,
+      whatsapp: w,
+      email: e
+    })
+  })
+  .catch(function(err) {
+    console.error("Falha ao enviar para o Web3Forms:", err);
+  })
+  .finally(function() {
+    // 2) Independente do e-mail, abre o WhatsApp com os dados do lead
+    var texto = "Olá! Quero acesso às 47 Oportunidades do Park Sul.\n" +
+                "Nome: " + n + "\n" +
+                "WhatsApp: " + w + "\n" +
+                "E-mail: " + e;
+
+    window.location.href = "https://wa.me/" + MEU_WHATSAPP + "?text=" + encodeURIComponent(texto);
+  });
+}
+</script>
+</body>
+</html>
